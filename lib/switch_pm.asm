@@ -1,0 +1,20 @@
+CODE_SEG equ gdt_code - gdt_start
+DATA_SEG equ gdt_data - gdt_start
+
+switch_pm:
+    cli
+    lgdt [gdt_descriptor]
+    mov eax, cr0
+    or eax, 1
+    mov cr0, eax
+    jmp CODE_SEG:pm_start
+    [bits 32]
+    pm_start:
+        mov ax, DATA_SEG
+        mov ds, ax
+        mov ss, ax
+        mov es, ax
+        mov fs, ax
+        mov gs, ax
+        mov esp, 0x90000
+        jmp CODE_SEG:0x8000
