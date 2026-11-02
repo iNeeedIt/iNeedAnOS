@@ -1,2 +1,2 @@
 # iNeedAnOS
-## Learning project
+Learning project
