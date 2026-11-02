@@ -2,7 +2,6 @@ char keymap[128] = {0, 0, '1','2','3','4','5','6','7','8','9','0','-','=', 0, 0,
 char keymap_shift[128] = {0, 0, '!','@','#','$','%','^','&','*','(',')','_','+', 0, 0, 'Q','W','E','R','T','Y','U','I','O','P','{','}', 0, 0, 'A','S','D','F','G','H','J','K','L',':','"','~', 0, '|', 'Z','X','C','V','B','N','M','<','>','?', 0, '*', 0, ' '};
 int shift = 0;
 int cursor = 80;
-char ignorekey[];
 void print(char *str, int row, char color) {
     char *video = (char*) 0xB8000;
     int i = 0;
@@ -28,6 +27,15 @@ unsigned char inb(unsigned short port) {
     unsigned char result;
     asm volatile("inb %1, %0" : "=a" (result) : "Nd"(port));
     return result;
+}
+
+unsigned char outb(unsigned short port) {
+    unsigned char result;
+    asm volatile("outb %1, %0" : "=a" (result) : "Nd" (port));
+}
+
+void update_cursor(char cursor) {
+    
 }
 
 void main() {
